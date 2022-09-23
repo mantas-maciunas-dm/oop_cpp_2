@@ -1,6 +1,6 @@
 #include "build_lib.h"
 
-struct studentas 
+struct studentas
 {
     string vardas;
     string pavarde;
@@ -11,7 +11,7 @@ struct studentas
 
 studentas ivedimas();
 void isvedimas(studentas temp);
-int skaiciaus_patikrinimas(string zinute);
+int skaiciaus_patikrinimas(string zinute, bool check);
 void galutinio_skaiciavimas_vid(studentas& stud);
 void galutinio_skaiciavimas_med(studentas& stud);
 
@@ -83,11 +83,13 @@ int main() {
 }
 
 
-int skaiciaus_patikrinimas(string zinute)
+int skaiciaus_patikrinimas(string zinute, bool check)
 {
     string tikrinamas_skaicius;
     bool ar_skaicius = false;
-    while (!ar_skaicius)
+    bool ar_tarp_vieno_ir_desimt = false;
+    int patikrintas_skaicius = 0;
+    while (!ar_skaicius && !ar_tarp_vieno_ir_desimt)
     {
         cout << zinute;
         cin >> tikrinamas_skaicius;
@@ -102,17 +104,34 @@ int skaiciaus_patikrinimas(string zinute)
                 ar_skaicius = true;
             }
         }
+        if (ar_skaicius)
+        {
+            patikrintas_skaicius = stoi(tikrinamas_skaicius);
+        }
+        if (!check && patikrintas_skaicius == -1)
+        {
+            break;
+        }
+        if (patikrintas_skaicius > 0 && patikrintas_skaicius <= 10)
+        {
+            ar_tarp_vieno_ir_desimt = true;
+        }
+        else
+        {
+            ar_skaicius = false;
+        }
     }
-    return stoi(tikrinamas_skaicius);
+
+    return patikrintas_skaicius;
 }
 
 
-studentas ivedimas() 
+studentas ivedimas()
 {
     studentas stud;
-    cout << "Iveskite varda: "; 
+    cout << "Iveskite varda: ";
     cin >> stud.vardas;
-    cout << "Iveskite pavarde: "; 
+    cout << "Iveskite pavarde: ";
     cin >> stud.pavarde;
 
     stud.galutinis = 0;
@@ -129,15 +148,14 @@ studentas ivedimas()
         int indeksas = 0;
         while (true)
         {
-            int ivestas_skaicius = skaiciaus_patikrinimas("Iveskite " + to_string(indeksas++ + 1) + " pazymi(iveskite -1 noredami nutraukti darba): ");
+            int ivestas_skaicius = skaiciaus_patikrinimas("Iveskite " + to_string(indeksas++ + 1) + " pazymi(iveskite -1 noredami nutraukti darba): ", false);
             if (ivestas_skaicius == -1)
             {
                 break;
             }
             stud.pazymiai.push_back(ivestas_skaicius);
         }
-        cout << "Iveskite egzamino paz.: ";
-        cin >> stud.egzaminas;
+        stud.egzaminas = skaiciaus_patikrinimas("Iveskite egzamino paz.: ", true);
     }
 
     else if (pasirinkimas == 'r')
@@ -154,7 +172,7 @@ studentas ivedimas()
 }
 
 
-void isvedimas(studentas temp) 
+void isvedimas(studentas temp)
 {
     printf("|%-20s|%-20s|", temp.vardas.c_str(), temp.pavarde.c_str());
     for (int a = 0; a < temp.pazymiai.size(); a++)
@@ -179,19 +197,23 @@ void galutinio_skaiciavimas_vid(studentas &stud)
 
 void galutinio_skaiciavimas_med(studentas& stud)
 {
-    sort(stud.pazymiai.begin(), stud.pazymiai.end());
+    vector<int> pazymiu_masyvas;
+    for (int i = 0; i < stud.pazymiai.size(); i++)
+        pazymiu_masyvas.push_back(stud.pazymiai[i]);
+    pazymiu_masyvas.push_back(stud.egzaminas);
+    sort(pazymiu_masyvas.begin(), pazymiu_masyvas.end());
     float pazymiu_mediana;
-    if (stud.pazymiai.size() == 0)
+    if (pazymiu_masyvas.size() == 0)
     {
         pazymiu_mediana = 0;
     }
-    else if (stud.pazymiai.size() % 2 == 0)
+    else if (pazymiu_masyvas.size() % 2 == 0)
     {
-        pazymiu_mediana = (stud.pazymiai[stud.pazymiai.size() / 2] + stud.pazymiai[stud.pazymiai.size() / 2 - 1]) / 2.0;
+        pazymiu_mediana = (pazymiu_masyvas[pazymiu_masyvas.size() / 2] + pazymiu_masyvas[pazymiu_masyvas.size() / 2 - 1]) / 2.0;
     }
     else
     {
-        pazymiu_mediana = stud.pazymiai[(stud.pazymiai.size() - 1) / 2];
+        pazymiu_mediana = pazymiu_masyvas[(pazymiu_masyvas.size() - 1) / 2];
     }
     stud.galutinis = 0.4 * pazymiu_mediana + 0.6 * stud.egzaminas;
 }

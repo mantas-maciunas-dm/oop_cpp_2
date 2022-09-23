@@ -69,11 +69,13 @@ int main() {
 }
 
 
-int skaiciaus_patikrinimas(string zinute)
+int skaiciaus_patikrinimas(string zinute, bool check)
 {
     string tikrinamas_skaicius;
     bool ar_skaicius = false;
-    while (!ar_skaicius)
+    bool ar_tarp_vieno_ir_desimt = false;
+    int patikrintas_skaicius = 0;
+    while (!ar_skaicius && !ar_tarp_vieno_ir_desimt)
     {
         cout << zinute;
         cin >> tikrinamas_skaicius;
@@ -88,8 +90,25 @@ int skaiciaus_patikrinimas(string zinute)
                 ar_skaicius = true;
             }
         }
+        if (ar_skaicius)
+        {
+            patikrintas_skaicius = stoi(tikrinamas_skaicius);
+        }
+        if (!check && patikrintas_skaicius == -1)
+        {
+            break;
+        }
+        if (patikrintas_skaicius > 0 && patikrintas_skaicius <= 10)
+        {
+            ar_tarp_vieno_ir_desimt = true;
+        }
+        else
+        {
+            ar_skaicius = false;
+        }
     }
-    return stoi(tikrinamas_skaicius);
+
+    return patikrintas_skaicius;
 }
 
 
@@ -130,7 +149,7 @@ void ivedimas(vector<studentas> &S)
             int indeksas = 0;
             while (true)
             {
-                int ivestas_skaicius = skaiciaus_patikrinimas("Iveskite " + to_string(indeksas++ + 1) + " pazymi(iveskite -1 noredami nutraukti darba): ");
+                int ivestas_skaicius = skaiciaus_patikrinimas("Iveskite " + to_string(indeksas++ + 1) + " pazymi(iveskite -1 noredami nutraukti darba): ", false);
                 if (ivestas_skaicius == -1)
                 {
                     break;
@@ -148,8 +167,7 @@ void ivedimas(vector<studentas> &S)
                 namu_darbai_laikinas[0] = ivestas_skaicius;
                 stud.pazymiai = namu_darbai_laikinas;
             }
-            cout << "Iveskite egzamino paz.: ";
-            cin >> stud.egzaminas;
+            stud.egzaminas = skaiciaus_patikrinimas("Iveskite egzamino paz.: ", true);
         }
 
         else if (pasirinkimas == 'r')
@@ -208,19 +226,24 @@ void galutinio_skaiciavimas_vid(studentas &stud)
 
 void galutinio_skaiciavimas_med(studentas& stud)
 {
-    sort(stud.pazymiai, stud.pazymiai + stud.pazymiu_kiekis);
+    int masyvo_dydis = stud.pazymiu_kiekis + 1;
+    int pazymiu_masyvas[masyvo_dydis];
+    for (int i = 0; i < stud.pazymiu_kiekis; i++)
+        pazymiu_masyvas[i] = stud.pazymiai[i];
+    pazymiu_masyvas[masyvo_dydis - 1] = stud.egzaminas;
+    sort(pazymiu_masyvas, pazymiu_masyvas + masyvo_dydis);
     float pazymiu_mediana;
     if (stud.pazymiu_kiekis == 0)
     {
         pazymiu_mediana = 0;
     }
-    else if (stud.pazymiu_kiekis % 2 == 0)
+    else if (masyvo_dydis % 2 == 0)
     {
-        pazymiu_mediana = (stud.pazymiai[stud.pazymiu_kiekis / 2] + stud.pazymiai[stud.pazymiu_kiekis / 2 - 1]) / 2.0;
+        pazymiu_mediana = (pazymiu_masyvas[masyvo_dydis / 2] + pazymiu_masyvas[masyvo_dydis / 2 - 1]) / 2.0;
     }
     else
     {
-        pazymiu_mediana = stud.pazymiai[(stud.pazymiu_kiekis - 1) / 2];
+        pazymiu_mediana = pazymiu_masyvas[(masyvo_dydis - 1) / 2];
     }
     stud.galutinis = 0.4 * pazymiu_mediana + 0.6 * stud.egzaminas;
 }
