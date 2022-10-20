@@ -2,4 +2,4 @@
 #include "build_lib.h";
 #include "studentas.h";
 
-bool palyginimas(studentas stud1, studentas stud2);
+bool nelaimeliu_suradimas(studentas stud);

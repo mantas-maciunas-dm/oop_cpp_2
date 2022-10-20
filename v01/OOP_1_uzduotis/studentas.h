@@ -7,6 +7,6 @@ struct studentas
     string pavarde;
     vector<int> pazymiai;
     int egzaminas;
-    double galutinis_med;
     double galutinis_vid;
+    double galutinis_med;
 };

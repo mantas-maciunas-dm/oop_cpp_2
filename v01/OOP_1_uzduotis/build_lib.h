@@ -10,6 +10,11 @@
 #include <fstream>
 #include <sstream>
 #include <stdlib.h>
+#include <chrono>
+#include <random>
+#include <iomanip>
+#include <numeric>
+#include <iterator>
 
 using std::vector;
 using std::cout;
@@ -23,3 +28,13 @@ using std::ifstream;
 using std::stringstream;
 using std::remove_if;
 using std::exception;
+using std::chrono::high_resolution_clock;
+using std::mt19937;
+using std::uniform_int_distribution;
+using std::ofstream;
+using std::setw;
+using std::left;
+using std::right;
+using std::chrono::duration;
+using std::accumulate;
+using std::istream_iterator;

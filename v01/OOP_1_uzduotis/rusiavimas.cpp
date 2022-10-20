@@ -3,18 +3,10 @@
 #include "rusiavimas.h";
 
 
-void rusiavimas(vector<studentas>& studentai)
+bool palyginimas(studentas stud1, studentas stud2)
 {
-    for (int i = 0; i < studentai.size() - 1; i++)
-    {
-        for (int j = i + 1; j < studentai.size(); j++)
-        {
-            if (studentai[i].vardas.compare(studentai[j].vardas) > 0)
-                iter_swap(studentai.begin() + i, studentai.begin() + j);
+    if (stud1.vardas.compare(stud2.vardas) == 0)
+        return (stud1.pavarde.compare(stud2.pavarde) < 0);
 
-            else if (studentai[i].vardas.compare(studentai[j].vardas) == 0)
-                if (studentai[i].pavarde.compare(studentai[j].pavarde) > 0)
-                    iter_swap(studentai.begin() + i, studentai.begin() + j);
-        }
-    }
+    return (stud1.vardas.compare(stud2.vardas) < 0);
 }
