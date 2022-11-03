@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <numeric>
 #include <iterator>
+#include <list>
 
 using std::vector;
 using std::cout;
@@ -38,3 +39,5 @@ using std::right;
 using std::chrono::duration;
 using std::accumulate;
 using std::istream_iterator;
+using std::list;
+using std::ws;
