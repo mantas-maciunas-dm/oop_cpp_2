@@ -69,8 +69,8 @@ int main()
                 duration<double> skirtumas_vector = matavimo_pabaiga_vector - matavimo_pradzia_vector;
                 cout << "Studentu suskirstymas uztruko: " << skirtumas_vector.count() << "s" << endl;
 
-                isvedimas_vector("kieti" + to_string(studentu_skaicius) + "_vector.txt", kieti_stud_vector);
-                isvedimas_vector("nelaimeliai" + to_string(studentu_skaicius) + "_vector.txt", nelaimeliai_stud_vector);
+                //isvedimas_vector("kieti" + to_string(studentu_skaicius) + "_vector.txt", kieti_stud_vector);
+                //isvedimas_vector("nelaimeliai" + to_string(studentu_skaicius) + "_vector.txt", nelaimeliai_stud_vector);
 
                 auto viso_matavimo_pabaiga_vector = high_resolution_clock::now();
                 duration<double> viso_skirtumas_vector = viso_matavimo_pabaiga_vector - viso_matavimo_pradzia_vector;
@@ -118,8 +118,8 @@ int main()
                 duration<double> skirtumas_list = matavimo_pabaiga_list - matavimo_pradzia_list;
                 cout << "Studentu suskirstymas uztruko: " << skirtumas_list.count() << "s" << endl;
 
-                isvedimas_list("kieti" + to_string(studentu_skaicius) + "_list.txt", kieti_stud_list);
-                isvedimas_list("nelaimeliai" + to_string(studentu_skaicius) + "_list.txt", nelaimeliai_stud_list);
+                //isvedimas_list("kieti" + to_string(studentu_skaicius) + "_list.txt", kieti_stud_list);
+                //isvedimas_list("nelaimeliai" + to_string(studentu_skaicius) + "_list.txt", nelaimeliai_stud_list);
 
                 auto viso_matavimo_pabaiga_list = high_resolution_clock::now();
                 duration<double> viso_skirtumas_list = viso_matavimo_pabaiga_list - viso_matavimo_pradzia_list;
