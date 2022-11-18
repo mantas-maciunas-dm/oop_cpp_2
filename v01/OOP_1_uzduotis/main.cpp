@@ -133,19 +133,7 @@ int main()
             auto matavimo_pradzia_vector_antras = high_resolution_clock::now();
 
             vector<studentas> nelaimeliai_stud_vector_antras(vektorius_antras.size());
-
-            for (auto& kint : vektorius_antras)
-            {
-                galutinio_skaiciavimas_vid(kint);
-                galutinio_skaiciavimas_med(kint);
-
-                if (nelaimeliu_suradimas(kint)) 
-                {
-                    nelaimeliai_stud_vector_antras.push_back(kint);
-                }
-            }
-            remove_if(vektorius_antras.begin(), vektorius_antras.end(), nelaimeliu_suradimas);
-            //remove_copy_if(vektorius_antras.begin(), vektorius_antras.end(), nelaimeliai_stud_vector_antras.begin(), nelaimeliu_suradimas);
+            remove_copy_if(vektorius_antras.begin(), vektorius_antras.end(), nelaimeliai_stud_vector_antras.begin(), nelaimeliu_suradimas);
 
             auto matavimo_pabaiga_vector_antras = high_resolution_clock::now();
             duration<double> skirtumas_vector_antras = matavimo_pabaiga_vector_antras - matavimo_pradzia_vector_antras;
