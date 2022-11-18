@@ -1,6 +1,6 @@
-#include "build_lib.h";
-#include "studentas.h";
-#include "ivedimas_isvedimas.h";
+#include "build_lib.h"
+#include "studentas.h"
+#include "ivedimas_isvedimas.h"
 
 
 unsigned int Zodziai_eiluteje(string const& str)

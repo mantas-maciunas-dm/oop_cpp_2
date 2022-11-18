@@ -1,6 +1,6 @@
-#include "build_lib.h";
-#include "studentas.h";
-#include "rusiavimas.h";
+#include "build_lib.h"
+#include "studentas.h"
+#include "rusiavimas.h"
 
 
 bool palyginimas(studentas stud1, studentas stud2)

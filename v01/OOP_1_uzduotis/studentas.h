@@ -1,5 +1,5 @@
 #pragma once
-#include "build_lib.h";
+#include "build_lib.h"
 
 struct studentas
 {

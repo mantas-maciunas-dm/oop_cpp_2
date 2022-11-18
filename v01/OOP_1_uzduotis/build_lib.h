@@ -41,3 +41,4 @@ using std::accumulate;
 using std::istream_iterator;
 using std::list;
 using std::ws;
+using std::remove_copy_if;

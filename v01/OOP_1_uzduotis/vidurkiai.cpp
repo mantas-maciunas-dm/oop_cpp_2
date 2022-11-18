@@ -1,6 +1,6 @@
-#include "build_lib.h";
-#include "studentas.h";
-#include "vidurkiai.h";
+#include "build_lib.h"
+#include "studentas.h"
+#include "vidurkiai.h"
 
 
 void galutinio_skaiciavimas_vid(studentas& stud)
